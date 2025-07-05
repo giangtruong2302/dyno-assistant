@@ -1,7 +1,11 @@
 {
-  "name": "openassistant-monorepo",
+  "name": "dyno-assistant-monorepo",
   "version": "0.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giangtruong2302/dyno-assistant.git"
+  },
   "workspaces": [
     "packages/*",
     "packages/tools/*",
@@ -79,6 +83,5 @@
     "apache-arrow": "^17.0.0",
     "typescript": "5.0.4",
     "zod": "3.24.4"
-  },
-  "packageManager": "yarn@4.0.0"
+  }
 }
