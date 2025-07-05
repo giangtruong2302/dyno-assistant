@@ -1,6 +1,6 @@
 {
   "name": "@dyno-assistant/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Giang Truong",
   "description": "Core library for Dyno Assistant based on Vercel AI SDK",
   "main": "src/index.ts",

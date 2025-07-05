@@ -3,8 +3,8 @@ import {
   MessageModel,
   useAssistant,
   UseAssistantProps,
-} from '@openassistant/core';
-import { generateId } from '@openassistant/utils';
+} from '@dyno-assistant/core';
+import { generateId } from '@dyno-assistant/utils';
 import { Message } from '@ai-sdk/ui-utils';
 
 import MessageCard from './message-card';

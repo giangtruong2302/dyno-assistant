@@ -1,6 +1,6 @@
 {
   "name": "@dyno-assistant/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Chat UI components for Dyno Assistant",
   "author": "Giang Truong",
   "license": "MIT",
@@ -47,8 +47,8 @@
     "@heroui/react": "^2.7.8",
     "@heroui/use-clipboard": "^2.1.8",
     "@iconify/react": "^5.1.0",
-    "@dyno-assistant/core": "^0.1.0",
-    "@dyno-assistant/utils": "^0.1.0",
+    "@dyno-assistant/core": "^0.1.1",
+    "@dyno-assistant/utils": "^0.1.1",
     "ai": "^4.3.16",
     "framer-motion": "^11.15.0",
     "html2canvas": "^1.4.1",
