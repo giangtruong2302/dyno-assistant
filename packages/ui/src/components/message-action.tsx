@@ -1,6 +1,6 @@
-import { Icon } from '@iconify/react';
-import { Button, Tooltip } from '@heroui/react';
-import { StreamMessage, TextUIPart } from '@openassistant/core';
+import { Icon } from "@iconify/react";
+import { Button, Tooltip } from "@heroui/react";
+import { StreamMessage, TextUIPart } from "@dyno-assistant/core";
 
 export const MessageActions = ({
   isMessageDraggable,
@@ -17,7 +17,7 @@ export const MessageActions = ({
   handleCopy: () => void;
   handleFeedback: (index: number, liked: boolean) => void;
   copied: boolean;
-  feedback?: 'like' | 'dislike';
+  feedback?: "like" | "dislike";
 }) => {
   const onMessageDragStart = (
     e: React.DragEvent<HTMLButtonElement>,
@@ -26,16 +26,16 @@ export const MessageActions = ({
   ) => {
     if (message?.parts && message.parts.length > 0) {
       // find text parts
-      const textParts = message.parts.filter((part) => part.type === 'text');
+      const textParts = message.parts.filter((part) => part.type === "text");
       // compose text from all text parts
       const text = textParts
         .map((part) => (part as TextUIPart).text)
-        .join('\n');
+        .join("\n");
       e.dataTransfer.setData(
-        'text/plain',
+        "text/plain",
         JSON.stringify({
           id: `message-${index}`,
-          type: 'text',
+          type: "text",
           data: text,
         })
       );
@@ -91,7 +91,7 @@ export const MessageActions = ({
           onPress={() => handleFeedback(index, false)}
           data-testid="feedback-button"
         >
-          {feedback === 'dislike' ? (
+          {feedback === "dislike" ? (
             <Icon
               className="text-gray-600 dark:text-gray-400"
               icon="gravity-ui:thumbs-down-fill"

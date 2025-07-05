@@ -3,8 +3,8 @@ import {
   SendImageMessageProps,
   SendTextMessageProps,
   StreamMessage,
-} from '@dyno-assistant/core';
-import React, { ReactNode } from 'react';
+} from "@dyno-assistant/core";
+import React, { ReactNode } from "react";
 
 export type SendTextMessageHandlerProps = {
   newMessage: string;
@@ -32,13 +32,13 @@ export async function sendTextMessageHandler({
   const updatedMesssages: MessageModel[] = [
     ...messages,
     {
-      direction: 'outgoing',
-      sender: 'user',
-      position: 'normal',
+      direction: "outgoing",
+      sender: "user",
+      position: "normal",
       messageContent: {
         parts: [
           {
-            type: 'text',
+            type: "text",
             text: newMessage,
           },
         ],
@@ -48,9 +48,9 @@ export async function sendTextMessageHandler({
 
   // add empty incoming message
   let lastMessage: MessageModel = {
-    direction: 'incoming',
-    sender: 'assistant',
-    position: 'normal',
+    direction: "incoming",
+    sender: "assistant",
+    position: "normal",
     messageContent: { parts: [] },
   };
 
@@ -84,8 +84,8 @@ export async function sendTextMessageHandler({
           if (lastMessage?.messageContent?.parts?.length === 0) {
             lastMessage.messageContent.parts = [
               {
-                type: 'text',
-                text: 'Sorry, AI has not provided any response. Please try again.',
+                type: "text",
+                text: "Sorry, AI has not provided any response. Please try again.",
               },
             ];
           }
@@ -97,8 +97,8 @@ export async function sendTextMessageHandler({
     setTypingIndicator(false);
     // append errorMessage to the last message
     lastMessage.messageContent?.parts?.push({
-      type: 'text',
-      text: 'Error occured while processing the request. ' + error,
+      type: "text",
+      text: "Error occured while processing the request. " + error,
     });
     const newMessages: MessageModel[] = [...updatedMesssages, lastMessage];
     setMessages(newMessages);
@@ -134,14 +134,14 @@ export async function sendImageMessageHandler({
   const updatedMesssages: MessageModel[] = [
     ...messages,
     {
-      direction: 'outgoing',
-      sender: 'user',
-      position: 'normal',
+      direction: "outgoing",
+      sender: "user",
+      position: "normal",
       payload: imageBase64String,
       messageContent: {
         parts: [
           {
-            type: 'text',
+            type: "text",
             text: newMessage,
           },
         ],
@@ -150,9 +150,9 @@ export async function sendImageMessageHandler({
   ];
   // add incoming message to show typing indicator for chatbot
   let lastMessage: MessageModel = {
-    direction: 'incoming',
-    sender: 'assistant',
-    position: 'normal',
+    direction: "incoming",
+    sender: "assistant",
+    position: "normal",
     messageContent: { parts: [] },
   };
   setMessages([...updatedMesssages, lastMessage]);
@@ -183,8 +183,8 @@ export async function sendImageMessageHandler({
           if (lastMessage?.messageContent?.parts?.length === 0) {
             lastMessage.messageContent.parts = [
               {
-                type: 'text',
-                text: 'Sorry, AI has not provided any response. Please check if image prompt is supported by the selected AI model.',
+                type: "text",
+                text: "Sorry, AI has not provided any response. Please check if image prompt is supported by the selected AI model.",
               },
             ];
           }
@@ -196,8 +196,8 @@ export async function sendImageMessageHandler({
     setTypingIndicator(false);
     // append errorMessage to the last message
     lastMessage.messageContent?.parts?.push({
-      type: 'text',
-      text: 'Error occured while processing the request. ' + error,
+      type: "text",
+      text: "Error occured while processing the request. " + error,
     });
     const newMessages: MessageModel[] = [...updatedMesssages, lastMessage];
     setMessages(newMessages);
@@ -210,12 +210,12 @@ export async function sendImageMessageHandler({
 export function createWelcomeMessage(
   welcomeMessage: string | ReactNode
 ): StreamMessage {
-  if (typeof welcomeMessage === 'string') {
+  if (typeof welcomeMessage === "string") {
     return {
-      parts: [{ type: 'text', text: welcomeMessage }],
+      parts: [{ type: "text", text: welcomeMessage }],
     };
   }
   return {
-    parts: [{ type: 'text', text: '' }],
+    parts: [{ type: "text", text: "" }],
   };
 }

@@ -1,8 +1,8 @@
-import { ToolCallComponents, StreamMessagePart } from '@openassistant/core';
-import { ToolInvocation } from 'ai';
-import React, { ReactNode, memo } from 'react';
-import remarkGfm from 'remark-gfm';
-import Markdown from 'react-markdown';
+import { ToolCallComponents, StreamMessagePart } from "@dyno-assistant/core";
+import { ToolInvocation } from "ai";
+import React, { ReactNode, memo } from "react";
+import remarkGfm from "remark-gfm";
+import Markdown from "react-markdown";
 import {
   Accordion,
   AccordionItem,
@@ -14,8 +14,8 @@ import {
   TableColumn,
   Card,
   CardBody,
-} from '@heroui/react';
-import { Icon } from '@iconify/react';
+} from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 export const MarkdownContent = ({
   text,
@@ -77,7 +77,7 @@ class ToolCallErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error) {
-    console.error('Tool call component error:', error);
+    console.error("Tool call component error:", error);
     this.props.onError?.();
   }
 
@@ -110,7 +110,7 @@ const ToolCallComponentRenderer = memo(
 
     return (
       <ToolCallErrorBoundary>
-        {typeof Component === 'function' ? (
+        {typeof Component === "function" ? (
           <Component {...(additionalData as Record<string, unknown>)} />
         ) : (
           Component
@@ -135,7 +135,7 @@ export function PartComponent({
   useMarkdown?: boolean;
   showTools?: boolean;
 }) {
-  if (part.type === 'text') {
+  if (part.type === "text") {
     return (
       <div className="flex flex-col gap-2">
         <div className="text-sm">
@@ -143,7 +143,7 @@ export function PartComponent({
         </div>
       </div>
     );
-  } else if (part.type === 'tool-invocation' && showTools) {
+  } else if (part.type === "tool-invocation" && showTools) {
     return (
       <>
         <ToolCallComponent
@@ -169,8 +169,8 @@ export function ToolCallComponent({
   components?: ToolCallComponents;
 }) {
   const { toolName, args, state } = toolInvocation;
-  const isCompleted = state === 'result';
-  const llmResult = state === 'result' ? toolInvocation.result : {};
+  const isCompleted = state === "result";
+  const llmResult = state === "result" ? toolInvocation.result : {};
   const Component = components?.find(
     (component) => component.toolName === toolName
   )?.component as React.ComponentType<Record<string, unknown>> | undefined;
@@ -181,9 +181,9 @@ export function ToolCallComponent({
     ? Object.entries(llmResult).map(([key, value]) => ({
         key,
         value:
-          typeof value === 'object'
+          typeof value === "object"
             ? JSON.stringify(value, (_, v) =>
-                typeof v === 'bigint' ? v.toString() : v
+                typeof v === "bigint" ? v.toString() : v
               )
             : String(value),
       }))
@@ -191,7 +191,7 @@ export function ToolCallComponent({
 
   return (
     <div className="flex flex-col gap-2">
-      <Card radius="none" shadow="none" classNames={{ body: 'p-0 pl-2 pr-2' }}>
+      <Card radius="none" shadow="none" classNames={{ body: "p-0 pl-2 pr-2" }}>
         <CardBody className="opacity-50">
           <Accordion
             variant="light"
@@ -199,9 +199,9 @@ export function ToolCallComponent({
             className="pt-0 text-tiny"
             itemClasses={{
               title: `text-tiny ${
-                !toolSuccess ? 'text-orange-500' : 'text-green-500'
+                !toolSuccess ? "text-orange-500" : "text-green-500"
               }`,
-              content: 'text-tiny',
+              content: "text-tiny",
             }}
           >
             <AccordionItem
@@ -225,9 +225,9 @@ export function ToolCallComponent({
                       <span className="text-blue-600">{key}</span>
                       <span>: </span>
                       <span>
-                        {typeof value === 'object' && value !== null
+                        {typeof value === "object" && value !== null
                           ? JSON.stringify(value, (_, v) =>
-                              typeof v === 'bigint' ? v.toString() : v
+                              typeof v === "bigint" ? v.toString() : v
                             )
                           : String(value)}
                       </span>

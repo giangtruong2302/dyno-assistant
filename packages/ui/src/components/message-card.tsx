@@ -5,19 +5,19 @@ import {
   useCallback,
   useRef,
   useState,
-} from 'react';
-import { cn } from '@heroui/react';
-import { useClipboard } from '@heroui/use-clipboard';
+} from "react";
+import { cn } from "@heroui/react";
+import { useClipboard } from "@heroui/use-clipboard";
 import {
   MessagePayload,
   StreamMessage,
   ToolCallComponents,
-} from '@openassistant/core';
+} from "@dyno-assistant/core";
 
-import { AvatarBadge } from './avatar-badge';
-import { MessageContent } from './message-content';
-import { MessageActions } from './message-action';
-import { AttemptsNavigation, AttemptFeedback } from './message-feedback';
+import { AvatarBadge } from "./avatar-badge";
+import { MessageContent } from "./message-content";
+import { MessageActions } from "./message-action";
+import { AttemptsNavigation, AttemptFeedback } from "./message-feedback";
 
 export type MessageCardProps = HTMLAttributes<HTMLDivElement> & {
   index: number;
@@ -27,14 +27,14 @@ export type MessageCardProps = HTMLAttributes<HTMLDivElement> & {
   components?: ToolCallComponents;
   customMessage?: MessagePayload;
   currentAttempt?: number;
-  status?: 'success' | 'failed' | 'pending';
+  status?: "success" | "failed" | "pending";
   attempts?: number;
   messageClassName?: string;
   botMessageBackground?: string;
   onAttemptChange?: (attempt: number) => void;
   onMessageCopy?: (content: string | string[]) => void;
   onFeedback?: (index: number) => void;
-  onAttemptFeedback?: (feedback: 'like' | 'dislike' | 'same') => void;
+  onAttemptFeedback?: (feedback: "like" | "dislike" | "same") => void;
   githubIssueLink?: string;
   isMessageDraggable?: boolean;
   useMarkdown?: boolean;
@@ -66,9 +66,9 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
     },
     ref
   ) => {
-    const [feedback, setFeedback] = useState<'like' | 'dislike'>();
+    const [feedback, setFeedback] = useState<"like" | "dislike">();
     const [attemptFeedback, setAttemptFeedback] = useState<
-      'like' | 'dislike' | 'same'
+      "like" | "dislike" | "same"
     >();
 
     const messageRef = useRef<HTMLDivElement>(null);
@@ -76,37 +76,37 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
     const { copied, copy } = useClipboard();
 
     const failedMessageClassName =
-      status === 'failed'
-        ? 'bg-danger-100/50 border border-danger-100 text-foreground'
-        : '';
+      status === "failed"
+        ? "bg-danger-100/50 border border-danger-100 text-foreground"
+        : "";
 
-    const hasFailed = status === 'failed';
+    const hasFailed = status === "failed";
 
     const handleCopy = useCallback(() => {
-      let stringValue = '';
+      let stringValue = "";
 
-      if (typeof message === 'string') {
+      if (typeof message === "string") {
         stringValue = message;
       } else if (Array.isArray(message)) {
         message.forEach((child) => {
           const childString =
-            typeof child === 'string'
+            typeof child === "string"
               ? child
               : child?.props?.children?.toString();
 
           if (childString) {
-            stringValue += childString + '\n';
+            stringValue += childString + "\n";
           }
         });
       }
-      const valueToCopy = stringValue || messageRef.current?.textContent || '';
+      const valueToCopy = stringValue || messageRef.current?.textContent || "";
       copy(valueToCopy);
       onMessageCopy?.(valueToCopy);
     }, [copy, message, onMessageCopy]);
 
     const handleFeedback = useCallback(
       (index: number, liked: boolean) => {
-        setFeedback(liked ? 'like' : 'dislike');
+        setFeedback(liked ? "like" : "dislike");
         if (liked === false) {
           onFeedback?.(index);
         }
@@ -115,7 +115,7 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
     );
 
     const handleAttemptFeedback = useCallback(
-      (feedback: 'like' | 'dislike' | 'same') => {
+      (feedback: "like" | "dislike" | "same") => {
         setAttemptFeedback(feedback);
 
         onAttemptFeedback?.(feedback);
@@ -131,7 +131,7 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
         <div className="flex w-full flex-col gap-4 overflow-x-auto relative">
           <div
             className={cn(
-              'group relative w-full rounded-medium px-4 py-3',
+              "group relative w-full rounded-medium px-4 py-3",
               failedMessageClassName,
               messageClassName
             )}
@@ -153,10 +153,10 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
             </div>
             <div
               className={
-                'opacity-0 group-hover:opacity-100 absolute right-2 top-1 flex rounded-full shadow-small bg-content2'
+                "opacity-0 group-hover:opacity-100 absolute right-2 top-1 flex rounded-full shadow-small bg-content2"
               }
             >
-              {showFeedback && !hasFailed && status !== 'pending' && (
+              {showFeedback && !hasFailed && status !== "pending" && (
                 <MessageActions
                   isMessageDraggable={isMessageDraggable}
                   index={index}
@@ -190,4 +190,4 @@ const MessageCard = forwardRef<HTMLDivElement, MessageCardProps>(
 
 export default MessageCard;
 
-MessageCard.displayName = 'MessageCard';
+MessageCard.displayName = "MessageCard";

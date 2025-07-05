@@ -1,12 +1,12 @@
-import React from 'react';
-import { Spinner, Link } from '@heroui/react';
+import React from "react";
+import { Spinner, Link } from "@heroui/react";
 import {
   MessagePayload,
   StreamMessage,
   ToolCallComponents,
-} from '@openassistant/core';
+} from "@dyno-assistant/core";
 
-import { PartComponent } from './message-toolcall';
+import { PartComponent } from "./message-toolcall";
 
 const FailedMessage = ({ githubIssueLink }: { githubIssueLink?: string }) => (
   <p className="mb-2" data-testid="failed-message">
@@ -31,7 +31,7 @@ type MessageContentProps = {
   hasFailed: boolean;
   githubIssueLink?: string;
   message?: StreamMessage;
-  status?: 'success' | 'failed' | 'pending';
+  status?: "success" | "failed" | "pending";
   useMarkdown?: boolean;
   components?: ToolCallComponents;
   showTools?: boolean;
@@ -48,12 +48,12 @@ export function MessageContent({
   showTools,
 }: MessageContentProps) {
   return (
-    <div style={{ paddingRight: '30px' }}>
+    <div style={{ paddingRight: "30px" }}>
       <div className="flex flex-col gap-4">
         {/* show screenshot image */}
         {customMessage &&
-          typeof customMessage === 'string' &&
-          customMessage.startsWith('data:image') && (
+          typeof customMessage === "string" &&
+          customMessage.startsWith("data:image") && (
             <ScreenshotImage customMessage={customMessage} />
           )}
 
@@ -78,7 +78,7 @@ export function MessageContent({
       </div>
 
       {/* show loading spinner */}
-      {status === 'pending' && (
+      {status === "pending" && (
         <Spinner
           color="default"
           size="sm"
