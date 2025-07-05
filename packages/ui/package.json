@@ -1,6 +1,6 @@
 {
   "name": "@dyno-assistant/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Chat UI components for Dyno Assistant",
   "author": "Giang Truong",
   "license": "MIT",
@@ -36,7 +36,7 @@
     "build": "node esbuild.config.mjs",
     "watch": "node esbuild.config.mjs --watch",
     "declaration": "tsc --project tsconfig.json",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "npm run build",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
   },
   "publishConfig": {

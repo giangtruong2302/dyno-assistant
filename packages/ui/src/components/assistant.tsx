@@ -1,26 +1,26 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from "react";
 import {
   MessageModel,
   useAssistant,
   UseAssistantProps,
-} from '@dyno-assistant/core';
-import { generateId } from '@dyno-assistant/utils';
-import { Message } from '@ai-sdk/ui-utils';
+} from "@dyno-assistant/core";
+import { generateId } from "@dyno-assistant/utils";
+import { Message } from "@ai-sdk/ui-utils";
 
-import MessageCard from './message-card';
-import PromptInputWithBottomActions from './prompt-input-with-bottom-actions';
-import { ChatContainer } from './chat-container';
+import MessageCard from "./message-card";
+import PromptInputWithBottomActions from "./prompt-input-with-bottom-actions";
+import { ChatContainer } from "./chat-container";
 import {
   createWelcomeMessage,
   sendImageMessageHandler,
   sendTextMessageHandler,
-} from './assistant-utils';
+} from "./assistant-utils";
 
 /**
  * Type of AiAssistantProps.
  */
 export type AiAssistantProps = UseAssistantProps & {
-  theme?: 'dark' | 'light';
+  theme?: "dark" | "light";
   /** The welcome message of the assistant. */
   welcomeMessage: string | ReactNode;
   /** The ideas of the assistant, which will be shown above the prompt input box. */
@@ -73,22 +73,22 @@ function rebuildMessages(historyMessages: MessageModel[]): Message[] {
   const result: Message[] = [];
 
   for (const msg of historyMessages) {
-    if (msg.direction === 'outgoing') {
+    if (msg.direction === "outgoing") {
       // Handle user messages
       result.push({
         id: generateId(),
-        role: 'user',
-        content: '',
+        role: "user",
+        content: "",
         parts: msg.messageContent?.parts || [],
       });
-    } else if (msg.direction === 'incoming') {
+    } else if (msg.direction === "incoming") {
       // Handle assistant messages with tool calls
       if (msg.messageContent?.parts?.length) {
         // Add tool invocations message
         result.push({
           id: generateId(),
-          role: 'assistant',
-          content: '',
+          role: "assistant",
+          content: "",
           // return parts without property "additionalData"
           parts: msg.messageContent.parts.map((part) => ({
             ...part,
@@ -153,7 +153,7 @@ export function AiAssistant(props: AiAssistantProps) {
   }, [initializeAssistant, props.instructions]);
 
   const isScreenshotAvailable =
-    props.screenCapturedBase64?.startsWith('data:image');
+    props.screenCapturedBase64?.startsWith("data:image");
 
   /**
    * Handles sending a message, either as text or image based on the presence of a screenshot.
@@ -193,7 +193,7 @@ export function AiAssistant(props: AiAssistantProps) {
    * @returns {Promise<string>} The transcribed text from the audio, or an empty string if transcription fails.
    */
   const onVoiceMessage = async (audioBlob: Blob) => {
-    return (await audioToText(audioBlob)) || '';
+    return (await audioToText(audioBlob)) || "";
   };
 
   /**
@@ -212,7 +212,7 @@ export function AiAssistant(props: AiAssistantProps) {
     // report the message
     const question = `${messages[messageIndex]}`;
     if (props.onFeedback) {
-      props.onFeedback(question || '');
+      props.onFeedback(question || "");
     }
   };
 
@@ -236,23 +236,23 @@ export function AiAssistant(props: AiAssistantProps) {
   // scroll to bottom when new message is added
   useEffect(() => {
     // hack to scroll to bottom
-    const element = document.getElementById('chat-message-list');
+    const element = document.getElementById("chat-message-list");
     if (element?.firstElementChild) {
       element.scrollTop = element.firstElementChild.scrollHeight + 100;
     }
   }, [messages]);
 
   const getAvatar = (direction: string | number) => {
-    return direction === 'incoming'
+    return direction === "incoming"
       ? props.assistantAvatar || <AvatarIcon />
       : props.userAvatar;
   };
 
   return (
-    <ChatContainer theme={props.theme || 'light'}>
+    <ChatContainer theme={props.theme || "light"}>
       <div
         className={`order-1 m-2 flex h-full flex-grow flex-col overflow-y-auto overflow-x-hidden ${
-          props.fontSize ?? 'text-small'
+          props.fontSize ?? "text-small"
         }`}
       >
         <div
@@ -265,7 +265,7 @@ export function AiAssistant(props: AiAssistantProps) {
                 key={-1}
                 index={-1}
                 data-testid="message-card"
-                avatar={getAvatar('incoming')}
+                avatar={getAvatar("incoming")}
                 currentAttempt={1}
                 message={createWelcomeMessage(props.welcomeMessage)}
                 customMessage={props.welcomeMessage}
@@ -284,18 +284,18 @@ export function AiAssistant(props: AiAssistantProps) {
                   components={getComponents()}
                   customMessage={message.payload}
                   messageClassName={
-                    message.direction === 'outgoing'
+                    message.direction === "outgoing"
                       ? props.userMessageClassName ||
-                        'bg-content3 text-content3-foreground'
-                      : props.botMessageClassName || 'bg-transparent'
+                        "bg-content3 text-content3-foreground"
+                      : props.botMessageClassName || "bg-transparent"
                   }
-                  showFeedback={message.direction === 'incoming'}
+                  showFeedback={message.direction === "incoming"}
                   status={
                     isPrompting && i === messages.length - 1
-                      ? 'pending'
-                      : message.sender === 'error'
-                        ? 'failed'
-                        : 'success'
+                      ? "pending"
+                      : message.sender === "error"
+                        ? "failed"
+                        : "success"
                   }
                   onFeedback={reportQuestion}
                   isMessageDraggable={props.isMessageDraggable || false}
@@ -320,14 +320,14 @@ export function AiAssistant(props: AiAssistantProps) {
             onRemoveScreenshot={props.onRemoveScreenshot}
             screenCaptured={props.screenCapturedBase64}
             defaultPromptText={props.screenCapturedPrompt}
-            status={isPrompting ? 'pending' : 'success'}
+            status={isPrompting ? "pending" : "success"}
             onStopChat={onStopChat}
             onRestartChat={onRestartChat}
             fontSize={props.fontSize}
           />
           <p
             className={`px-2 ${
-              props.fontSize ?? 'text-tiny'
+              props.fontSize ?? "text-tiny"
             } text-gray-400 dark:text-gray-600`}
           >
             AI can make mistakes. Consider checking information.
@@ -347,7 +347,7 @@ type AvatarIconProps = {
 export function AvatarIcon({
   width = 16,
   height = 16,
-  className = '',
+  className = "",
 }: AvatarIconProps) {
   return (
     <svg

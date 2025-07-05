@@ -3,7 +3,7 @@ import {
   SendImageMessageProps,
   SendTextMessageProps,
   StreamMessage,
-} from '@openassistant/core';
+} from '@dyno-assistant/core';
 import React, { ReactNode } from 'react';
 
 export type SendTextMessageHandlerProps = {
