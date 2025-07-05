@@ -1,10 +1,10 @@
-import { GetAssistantModelByProvider } from '../lib/model-utils';
-import { UseAssistantProps } from '../hooks/use-assistant';
-import { Tool, convertToCoreMessages } from 'ai';
-import { ExtendedTool } from '@openassistant/utils';
+import { GetAssistantModelByProvider } from "../lib/model-utils";
+import { UseAssistantProps } from "../hooks/use-assistant";
+import { Tool, convertToCoreMessages } from "ai";
+import { ExtendedTool } from "@dyno-assistant/utils";
 
 function isExtendedTool(tool: Tool | ExtendedTool): tool is ExtendedTool {
-  return 'context' in tool || 'onToolCompleted' in tool || 'component' in tool;
+  return "context" in tool || "onToolCompleted" in tool || "component" in tool;
 }
 
 /**
@@ -77,7 +77,10 @@ export async function createAssistant(props: UseAssistantProps) {
           execute: async (args, options) => {
             const { toolCallId } = options;
             try {
-              const result = await execute(args as never, { ...options, context });
+              const result = await execute(args as never, {
+                ...options,
+                context,
+              });
 
               const { additionalData, llmResult } = result;
 
@@ -105,10 +108,10 @@ export async function createAssistant(props: UseAssistantProps) {
           component: component,
         });
       } else {
-       AssistantModel.registerTool({
-         name: functionName,
-         tool: toolObject,
-       }); 
+        AssistantModel.registerTool({
+          name: functionName,
+          tool: toolObject,
+        });
       }
     });
   }

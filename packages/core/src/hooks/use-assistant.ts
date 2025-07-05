@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { StreamMessageCallback } from '../types';
-import { VercelAi } from '../llm/vercelai';
-import { createAssistant } from '../utils/create-assistant';
-import { convertToCoreMessages, Message, Tool, ToolChoice, ToolSet } from 'ai';
-import { ExtendedTool } from '@openassistant/utils';
+import { useState, useEffect } from "react";
+import { StreamMessageCallback } from "../types";
+import { VercelAi } from "../llm/vercelai";
+import { createAssistant } from "../utils/create-assistant";
+import { convertToCoreMessages, Message, Tool, ToolChoice, ToolSet } from "ai";
+import { ExtendedTool } from "@dyno-assistant/utils";
 
 /**
  * Props for configuring the AI Assistant and useAssistant hook.
@@ -107,7 +107,7 @@ export function useAssistant(props: UseAssistantProps) {
    * 'failed' - The API key is invalid.
    * 'success' - The API key is valid.
    */
-  const [apiKeyStatus, setApiKeyStatus] = useState<string>('failed');
+  const [apiKeyStatus, setApiKeyStatus] = useState<string>("failed");
 
   // Add useEffect to initialize the assistant when the hook is first called
   useEffect(() => {
@@ -122,7 +122,7 @@ export function useAssistant(props: UseAssistantProps) {
     try {
       if (!props.chatEndpoint && (!props.model || !props.modelProvider)) {
         throw new Error(
-          'Either chatEndpoint or both model and modelProvider must be provided.'
+          "Either chatEndpoint or both model and modelProvider must be provided."
         );
       }
 
@@ -139,10 +139,10 @@ export function useAssistant(props: UseAssistantProps) {
         assistant.setAbortController(props.abortController);
       }
 
-      setApiKeyStatus('success');
+      setApiKeyStatus("success");
     } catch (error) {
-      console.error('useAssistant initialization error', error);
-      setApiKeyStatus('failed');
+      console.error("useAssistant initialization error", error);
+      setApiKeyStatus("failed");
     }
   };
 
@@ -159,7 +159,7 @@ export function useAssistant(props: UseAssistantProps) {
       await initializeAssistant();
     }
     if (assistant === null) {
-      throw new Error('LLM instance is not initialized');
+      throw new Error("LLM instance is not initialized");
     }
   };
 
